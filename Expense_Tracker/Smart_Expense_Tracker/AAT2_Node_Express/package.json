@@ -1,0 +1,8 @@
+{
+  "name": "smart-expense-tracker-v2",
+  "version": "2.0.0",
+  "description": "AAT-2: Node.js + Express REST API extension of the Smart Expense Tracker",
+  "main": "server.js",
+  "scripts": { "start": "node server.js", "seed": "node seed.js" },
+  "dependencies": { "express": "^5.1.0", "sql.js": "^1.13.0" }
+}
