@@ -1,62 +1,43 @@
-# 💰 Smart Expense Tracker
+# 💰 Smart Expense Tracker v2 (AAT-2)
 
-A full stack web application to record, filter and visualise personal expenses.
-Built for **AAT-1 (Portfolio-Driven)** – Full Stack Technologies.
+AAT-2 extension of the Smart Expense Tracker (AAT-1, Flask). The backend is rebuilt as a **Node.js + Express REST API**
+with an **SQL.js** database, and new features are added with the help of an AI coding assistant (Claude).
 
 ## Objective
-To build a practical full stack application that lets a user log daily expenses, view the running total,
-filter by category and see a spending breakdown chart — demonstrating frontend, backend, REST API and database integration.
+Use an AI-assisted workflow responsibly to extend an existing full stack application, then review, test and understand the generated code.
 
-## Description
-- **Frontend:** HTML5, CSS3 (responsive grid), vanilla JavaScript (`fetch` API for the chart)
-- **Backend:** Python Flask with Jinja2 templating and a JSON REST endpoint
-- **Database:** SQLite (via Python `sqlite3`, parameterised queries)
+## What's new compared to AAT-1
+| Feature | AAT-1 (Flask) | AAT-2 (Node/Express) |
+|---|---|---|
+| Backend | Flask + sqlite3 | Express 5 + SQL.js |
+| API | one read-only endpoint | full REST CRUD (`GET/POST/PUT/DELETE`) |
+| Edit expense | ✗ | ✔ |
+| Monthly category budgets + alerts (80% / 100%) | ✗ | ✔ |
+| Title search | ✗ | ✔ |
+| CSV export | ✗ | ✔ |
+| Validation | basic | server-side JSON errors (400/404) |
+| Frontend | server-rendered Jinja | single page, `fetch()` to the API |
 
-### Features
-- Add an expense (title, amount, category, date) with server-side validation
-- Delete an expense
-- Filter the list by category with a live total
-- Category-wise spending bar chart drawn from `/api/summary`
+## Tools
+Node.js 18+, Express.js, SQL.js, HTML, CSS, JavaScript, Git/GitHub, Claude (AI assistant)
 
-## Tools / Technologies
-Python 3.10+, Flask, SQLite, HTML, CSS, JavaScript, Git & GitHub
-
-## Project Structure
-```
-Expense_Tracker/
-├── app.py              # Flask routes, DB logic, REST API
-├── seed_demo.py        # Optional sample data loader
-├── requirements.txt
-├── templates/index.html
-├── static/style.css
-├── static/app.js
-└── screenshots/        # Output screenshots
-```
-
-## Execution Steps
+## Run
 ```bash
-git clone https://github.com/<your-username>/Smart_Expense_Tracker.git
-cd Smart_Expense_Tracker
-python -m venv venv
-venv\Scripts\activate          # Linux/Mac: source venv/bin/activate
-pip install -r requirements.txt
-python seed_demo.py            # optional: load sample data
-python app.py
+npm install
+npm start            # http://localhost:3000
+npm run seed         # (optional, in a 2nd terminal) load sample data
 ```
-Open **http://127.0.0.1:5000** in your browser.
 
-## API
-| Method | Route | Description |
-|--------|-------|-------------|
-| GET | `/` | Dashboard (supports `?category=Food`) |
-| POST | `/add` | Add an expense |
-| POST | `/delete/<id>` | Delete an expense |
-| GET | `/api/summary` | JSON totals per category |
+## REST API
+| Method | Route | Purpose |
+|---|---|---|
+| GET | `/api/expenses?category=Food&q=tea` | list / filter / search |
+| POST | `/api/expenses` | create (201) |
+| PUT | `/api/expenses/:id` | update |
+| DELETE | `/api/expenses/:id` | delete (204) |
+| GET | `/api/budgets` · PUT `/api/budgets/:category` | read / set monthly limit |
+| GET | `/api/summary?month=YYYY-MM` | spent vs limit + status per category |
+| GET | `/api/export.csv` | download all expenses |
 
-## Output
-![Dashboard](screenshots/output_1_dashboard.png)
-![After adding an expense](screenshots/output_3_after_add.png)
-![Filtered by Food](screenshots/output_4_filter_food.png)
-
-## Author
-<Your Name> – USN: <Your USN>
+## Screenshots
+See the `screenshots/` folder.
